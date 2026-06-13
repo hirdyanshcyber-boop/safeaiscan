@@ -11,4 +11,5 @@ node_modules/
 .env
 .env.local
 
-# Preview server config is fine to keep; ignore local-only overrides
+# Local editor / tooling folders
+.idea/
