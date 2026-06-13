@@ -1,0 +1,16 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SafeAI Scan">
+  <defs>
+    <linearGradient id="saiGrad" x1="4" y1="2" x2="28" y2="30" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <!-- shield -->
+  <path d="M16 2.5 L27.5 6.4 V15 C27.5 22.6 22 27.6 16 29.5 C10 27.6 4.5 22.6 4.5 15 V6.4 Z" fill="url(#saiGrad)"/>
+  <!-- scan ring -->
+  <circle cx="16" cy="15.4" r="8.4" stroke="#ffffff" stroke-opacity="0.32" stroke-width="1.1" fill="none"/>
+  <!-- scan sweep -->
+  <path d="M16 15.4 L23.4 11.1" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.1" stroke-linecap="round"/>
+  <!-- check (security passed) -->
+  <path d="M11.2 15.6 L14.6 19 L21 11.6" stroke="#ffffff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
