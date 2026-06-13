@@ -16,6 +16,7 @@ const CONFIG = {
   SUPABASE_URL:  "",   // e.g. https://xxxx.supabase.co
   SUPABASE_KEY:  "",   // anon public key
   FORMSPREE_ID:  "",   // e.g. "xanbgkqz" -> https://formspree.io/f/xanbgkqz
+  EMAIL_ENDPOINT: "/api/send-report", // Cloudflare Function that emails the PDF (set "" to disable)
   // Seed so the live counter never reads as empty on launch day.
   SEED_COUNT: 312,
   SEED_LEAK_PCT: 71
@@ -112,6 +113,26 @@ async function captureLead({ email, name, business, industry, result }) {
     } catch (e) { return false; }
   }
   return true; // local-only mode still "succeeds"
+}
+
+// Public: email the branded PDF report to the visitor (via the Cloudflare Function).
+// Returns true if the email was accepted. Fails quietly (e.g. local dev, no key set)
+// so the in-browser download is always still available.
+async function emailReport({ email, name, business, pdfBase64, result }) {
+  if (!CONFIG.EMAIL_ENDPOINT || !pdfBase64) return false;
+  try {
+    const res = await fetch(CONFIG.EMAIL_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email, name, business, pdfBase64,
+        score: result.overall, grade: result.grade
+      })
+    });
+    return res.ok;
+  } catch (e) {
+    return false;
+  }
 }
 
 // Public: export captured leads as CSV (run from the browser console in local mode).

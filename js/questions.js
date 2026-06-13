@@ -149,6 +149,18 @@ const QUESTIONS = [
     ]
   },
 
+  {
+    id: "q21", pillar: "transparency", weight: 2,
+    text: "Does your privacy policy say how you use AI — especially for decisions about customers?",
+    help: "From December 2026, Australian privacy law (new APP 1.7) requires many businesses to disclose AI-driven decisions in their privacy policy. Getting ahead of it is cheap; scrambling later isn't.",
+    options: [
+      { label: "We don't have a privacy policy",          score: 0 },
+      { label: "We have one, but it doesn't mention AI",   score: 35 },
+      { label: "Not sure",                                 score: 20 },
+      { label: "Yes, it covers how we use AI",             score: 100 }
+    ]
+  },
+
   // ---- AI6: Testing & monitoring ----
   {
     id: "q12", pillar: "testing", weight: 2,
@@ -283,9 +295,9 @@ const FIXES = {
   transparency: {
     title: "Be upfront about AI",
     steps: [
+      "Add a line to your privacy policy on how you use AI — the new Privacy Act rule (APP 1.7) expects this from Dec 2026.",
       "Tell customers when they're dealing with an AI chatbot.",
-      "Note where AI helps produce advice or content.",
-      "Keep a plain-English explanation of how you use AI ready."
+      "Keep a plain-English explanation of how you use AI ready for anyone who asks."
     ]
   },
   testing: {

@@ -13,8 +13,8 @@ function assert(name, cond) {
   else { fail++; console.log("  ✗ " + name); }
 }
 
-// All 20 questions present and each maps to a known pillar.
-assert("20 questions", QUESTIONS.length === 20);
+// All questions present and each maps to a known pillar.
+assert("21 questions", QUESTIONS.length === 21);
 assert("every pillar key valid", QUESTIONS.every(q => PILLARS[q.pillar]));
 assert("every option has numeric score", QUESTIONS.every(q => q.options.every(o => typeof o.score === "number")));
 

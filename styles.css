@@ -123,6 +123,7 @@ small { font-size:.6em; vertical-align:super; opacity:.7; }
 .dash-head-copy h2 { font-size:1.6rem; letter-spacing:-.02em; }
 .dash-head-copy p { color:var(--grey); margin:6px 0 18px; }
 .dash-actions { display:flex; gap:12px; flex-wrap:wrap; }
+.email-status { margin-top:12px; font-size:.88rem; font-weight:600; color:var(--green); }
 
 .section-title { margin:42px 0 16px; font-size:1.3rem; letter-spacing:-.02em; }
 .pillars { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }

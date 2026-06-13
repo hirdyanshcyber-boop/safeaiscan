@@ -19,7 +19,7 @@ function bandRGB(level) {
   return { green: BRAND.green, amber: BRAND.amber, red: BRAND.red, na: BRAND.grey }[level] || BRAND.grey;
 }
 
-function generatePDF(result, meta) {
+function buildReportDoc(result, meta) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const W = doc.internal.pageSize.getWidth();
@@ -177,14 +177,29 @@ function generatePDF(result, meta) {
     doc.setDrawColor(...BRAND.light).setLineWidth(1);
     doc.line(M, H - 40, W - M, H - 40);
     doc.setTextColor(...BRAND.grey).setFont("helvetica", "normal").setFontSize(8);
-    doc.text("SafeAI Scan · safeaiscan.com.au · Mapped to the National AI Centre's AI6 guidance (Oct 2025)", M, H - 26);
+    doc.text("SafeAI Scan · safeaiscan.com.au · Built around AI6 guidance, the Essential Eight, and the Privacy Act", M, H - 26);
     doc.text(`Page ${i} of ${pages}`, W - M, H - 26, { align: "right" });
     doc.setFontSize(7).setTextColor(...BRAND.grey);
     doc.text("Indicative self-assessment, not legal or compliance advice.", M, H - 14);
   }
 
+  return doc;
+}
+
+function reportFilename(meta) {
   const safeName = (meta && meta.business ? meta.business : "SafeAI-Scan").replace(/[^a-z0-9]+/gi, "-");
-  doc.save(`${safeName}-AI-Security-Report.pdf`);
+  return `${safeName}-AI-Security-Report.pdf`;
+}
+
+// Download the report (the dashboard button).
+function generatePDF(result, meta) {
+  buildReportDoc(result, meta).save(reportFilename(meta));
+}
+
+// Base64 of the PDF body (no "data:" prefix) — for emailing as an attachment.
+function getReportBase64(result, meta) {
+  return buildReportDoc(result, meta).output("datauristring").split(",")[1];
 }
 
 window.generatePDF = generatePDF;
+window.getReportBase64 = getReportBase64;

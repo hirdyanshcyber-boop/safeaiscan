@@ -40,7 +40,25 @@ Settings → Pages → deploy from `main` / root. Done.
 
 ## Going live (optional backends)
 
-Open `js/store.js` → edit the `CONFIG` block.
+### 0. Auto-email the PDF report to the visitor (Resend + Cloudflare Function)
+
+This is the recommended path — the visitor gets their branded report in their
+inbox automatically, and you get a lead alert. Code already lives in
+`functions/api/send-report.js`; it runs for free on Cloudflare Pages.
+
+1. Sign up at [resend.com](https://resend.com) (free: 3,000 emails/month). Create an API key.
+2. Verify your sending domain in Resend (add the DNS records to `safeaiscan.com.au`)
+   so emails don't go to spam.
+3. Cloudflare Pages → your project → **Settings → Environment variables**, add:
+   - `RESEND_API_KEY` — your key (required)
+   - `SAFEAI_FROM` — e.g. `SafeAI Scan <report@safeaiscan.com.au>` (optional)
+   - `SAFEAI_NOTIFY` — your inbox, to get a lead alert per submission (optional)
+4. Redeploy. Done — the report now emails itself.
+
+Until `RESEND_API_KEY` is set, the endpoint returns 503 and the site quietly
+falls back to the in-browser PDF download. Nothing breaks in local dev.
+
+The other two below are optional extras.
 
 ### 1. Email leads → your inbox (Formspree, free tier)
 1. Sign up at formspree.io, create a form, copy its ID (e.g. `xanbgkqz`).
@@ -82,8 +100,9 @@ All logic is pure functions in `js/engine.js` — see `test/engine.test.js`.
 | `js/questions.js` | The 20-question bank, AI6 pillar map, plain-English fixes |
 | `js/engine.js` | Pure scoring functions |
 | `js/store.js` | Live counter + lead capture (localStorage / Supabase / Formspree) |
-| `js/report.js` | Branded PDF generator (jsPDF) |
+| `js/report.js` | Branded PDF generator (jsPDF) — build / download / base64 |
 | `js/app.js` | UI controller / flow |
+| `functions/api/send-report.js` | Cloudflare Function: emails the PDF via Resend |
 | `supabase-schema.sql` | DB tables + RPC for the shared live counter |
 
 ---

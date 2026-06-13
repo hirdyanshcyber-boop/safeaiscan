@@ -112,10 +112,17 @@ async function submitGate(e) {
   $("#gate-submit").textContent = "Building your report…";
 
   const leaksData = state.answers["q1"] != null && state.answers["q1"] <= 1; // pasting sensitive data
-  await Promise.all([
+
+  // Build the PDF once here so we can both email it and let them download it.
+  let pdfBase64 = null;
+  try { pdfBase64 = getReportBase64(state.result, state.meta); } catch (e) { /* download still works */ }
+
+  const [, , emailed] = await Promise.all([
     captureLead({ ...state.meta, result: state.result }),
-    recordCompletion(state.result, leaksData)
+    recordCompletion(state.result, leaksData),
+    pdfBase64 ? emailReport({ ...state.meta, pdfBase64, result: state.result }) : Promise.resolve(false)
   ]);
+  state.emailed = emailed;
 
   renderDashboard();
   show("dashboard");
@@ -135,6 +142,9 @@ function renderDashboard() {
   $("#dash-band").style.background = r.band.color;
   $("#dash-ring").style.background =
     `conic-gradient(${r.band.color} ${r.overall * 3.6}deg, #e2e8f0 0deg)`;
+
+  const es = $("#email-status");
+  if (es) es.textContent = state.emailed ? `📧 Report on its way to ${state.meta.email}` : "";
 
   $("#pillars").innerHTML = r.pillars.map(p => `
     <div class="pillar ${p.band.level}">
