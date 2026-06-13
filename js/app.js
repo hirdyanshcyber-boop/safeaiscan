@@ -172,7 +172,7 @@ function renderDashboard() {
 /* ---------- Share card ---------- */
 function buildShareText() {
   const r = state.result;
-  return `I just ran my business through SafeAI Scan — scored ${r.overall}/100 (Grade ${r.grade}) on AI security, mapped to Australia's AI6 guidance. Free 5-min check: https://safeaiscan.com.au`;
+  return `I just ran my business through SafeAI Scan and scored ${r.overall}/100 (Grade ${r.grade}) on AI security, mapped to Australia's AI6 guidance. Free 5-min check: https://safeaiscan.com.au`;
 }
 
 function shareLinkedIn() {

@@ -1,5 +1,5 @@
 /*
- * SafeAI Scan — question bank
+ * SafeAI Scan question bank
  * 20 plain-English questions for Australian small business owners.
  * Each maps to an AI6 essential practice (National AI Centre, Oct 2025),
  * a shadow-AI risk, or a cyber-hygiene baseline.
@@ -19,12 +19,12 @@ const PILLARS = {
   transparency:  { name: "Transparency",           ai6: "Share essential information" },
   testing:       { name: "Testing & monitoring",   ai6: "Test and monitor" },
   control:       { name: "Human control",          ai6: "Maintain human control" },
-  shadow:        { name: "Shadow AI & data leaks", ai6: "Cross-cutting — staff use of AI tools" },
+  shadow:        { name: "Shadow AI & data leaks", ai6: "Cross-cutting: staff use of AI tools" },
   cyber:         { name: "Cyber baseline",          ai6: "Foundational hygiene" }
 };
 
 const QUESTIONS = [
-  // ---- Shadow AI / data leaks (highest weight — the real killer) ----
+  // ---- Shadow AI / data leaks (highest weight, the real killer) ----
   {
     id: "q1", pillar: "shadow", weight: 3,
     text: "Do staff paste customer details, payroll, or other sensitive info into free AI tools (e.g. ChatGPT)?",
@@ -33,13 +33,13 @@ const QUESTIONS = [
       { label: "Yes, regularly",                     score: 0 },
       { label: "Sometimes / not sure",               score: 25 },
       { label: "Rarely, and only non-sensitive info", score: 70 },
-      { label: "No — we have clear rules against it", score: 100 }
+      { label: "No, we have clear rules against it", score: 100 }
     ]
   },
   {
     id: "q2", pillar: "shadow", weight: 2,
     text: "Do staff use personal AI accounts for work tasks?",
-    help: "Personal accounts sit outside any business control — IT can't see or secure what's shared.",
+    help: "Personal accounts sit outside any business control. IT can't see or secure what's shared.",
     options: [
       { label: "Yes, that's normal here",            score: 0 },
       { label: "Some do",                             score: 30 },
@@ -60,12 +60,12 @@ const QUESTIONS = [
   },
   {
     id: "q4", pillar: "shadow", weight: 2,
-    text: "Do you use AI tools that can act on their own — send emails, book, or pay — without a person approving each action?",
+    text: "Do you use AI tools that can act on their own (send emails, book, or pay) without a person approving each action?",
     help: "Autonomous 'AI agents' are the fastest-growing risk in 2026. An unsupervised agent can cause real damage fast.",
     options: [
       { label: "Yes, with no approval step",          score: 0 },
       { label: "Yes, but a person reviews first",     score: 70 },
-      { label: "No — AI only suggests, people act",   score: 100 },
+      { label: "No, AI only suggests and people act", score: 100 },
       { label: "Not sure",                            score: 20 }
     ]
   },
@@ -74,7 +74,7 @@ const QUESTIONS = [
   {
     id: "q5", pillar: "accountable", weight: 2,
     text: "Is there a specific person responsible for how AI is used in your business?",
-    help: "AI6 practice 1: every AI use should have a clear owner — someone accountable when it goes wrong.",
+    help: "AI6 practice 1: every AI use should have a clear owner, someone accountable when it goes wrong.",
     options: [
       { label: "No one in particular",               score: 0 },
       { label: "Informally, the owner/manager",       score: 50 },
@@ -106,7 +106,7 @@ const QUESTIONS = [
   {
     id: "q8", pillar: "impacts", weight: 1,
     text: "Do you use AI for anything high-stakes (legal, medical, financial, hiring advice) given to customers?",
-    help: "High-stakes uses need the most care — a wrong AI answer here can mean real harm or liability.",
+    help: "High-stakes uses need the most care. A wrong AI answer here can mean real harm or liability.",
     options: [
       { label: "Yes, with no extra checks",           score: 0 },
       { label: "Yes, but a qualified person checks",  score: 80 },
@@ -151,7 +151,7 @@ const QUESTIONS = [
 
   {
     id: "q21", pillar: "transparency", weight: 2,
-    text: "Does your privacy policy say how you use AI — especially for decisions about customers?",
+    text: "Does your privacy policy say how you use AI, especially for decisions about customers?",
     help: "From December 2026, Australian privacy law (new APP 1.7) requires many businesses to disclose AI-driven decisions in their privacy policy. Getting ahead of it is cheap; scrambling later isn't.",
     options: [
       { label: "We don't have a privacy policy",          score: 0 },
@@ -175,7 +175,7 @@ const QUESTIONS = [
   {
     id: "q13", pillar: "testing", weight: 1,
     text: "Would you know if an AI tool started leaking data or behaving badly?",
-    help: "Ongoing monitoring matters — most shadow-AI incidents go unnoticed for weeks.",
+    help: "Ongoing monitoring matters. Most shadow-AI incidents go unnoticed for weeks.",
     options: [
       { label: "No way to know",                      score: 0 },
       { label: "Maybe, eventually",                   score: 40 },
@@ -219,7 +219,7 @@ const QUESTIONS = [
   {
     id: "q17", pillar: "cyber", weight: 2,
     text: "Is multi-factor authentication (MFA) turned on for email and key business accounts?",
-    help: "MFA blocks the vast majority of account takeovers — and AI-powered phishing is now near-perfect.",
+    help: "MFA blocks the vast majority of account takeovers, and AI-powered phishing is now near-perfect.",
     options: [
       { label: "No",                                  score: 0 },
       { label: "On some accounts",                    score: 50 },
@@ -265,7 +265,7 @@ const FIXES = {
     steps: [
       "Write a one-line rule: never paste customer, payroll, or financial data into free AI tools.",
       "Move staff onto a business AI account (ChatGPT Team / Microsoft Copilot) where data isn't used for training.",
-      "Review what your AI tools can access — turn off email/file connections you don't need."
+      "Review what your AI tools can access. Turn off email/file connections you don't need."
     ]
   },
   accountable: {
@@ -295,7 +295,7 @@ const FIXES = {
   transparency: {
     title: "Be upfront about AI",
     steps: [
-      "Add a line to your privacy policy on how you use AI — the new Privacy Act rule (APP 1.7) expects this from Dec 2026.",
+      "Add a line to your privacy policy on how you use AI. The new Privacy Act rule (APP 1.7) expects this from Dec 2026.",
       "Tell customers when they're dealing with an AI chatbot.",
       "Keep a plain-English explanation of how you use AI ready for anyone who asks."
     ]

@@ -73,7 +73,7 @@ function buildReportDoc(result, meta) {
     ? "Solid foundation. Tighten the items below to stay ahead as AI risks grow."
     : result.overall >= 45
     ? "Real gaps that are common and fixable. The 30-day plan below closes most of them."
-    : "Significant exposure. Start with your top risk this week — it's the highest payoff.";
+    : "Significant exposure. Start with your top risk this week. It's the highest payoff.";
   doc.text(doc.splitTextToSize(verdict, W - 2 * M - 32), M + 16, y + 38);
   y += 70;
 
@@ -113,12 +113,12 @@ function buildReportDoc(result, meta) {
   y += 8;
   if (y > 640) { doc.addPage(); y = M; }
   doc.setTextColor(...BRAND.navy).setFont("helvetica", "bold").setFontSize(13);
-  doc.text("Your top risks — explained", M, y); y += 8;
+  doc.text("Your top risks, explained", M, y); y += 8;
   doc.setDrawColor(...BRAND.light); doc.line(M, y, W - M, y); y += 20;
 
   if (!result.topRisks.length) {
     doc.setTextColor(...BRAND.green).setFont("helvetica", "bold").setFontSize(11);
-    doc.text("No major risks flagged — well done. Keep reviewing as you adopt new AI tools.", M, y);
+    doc.text("No major risks flagged. Well done. Keep reviewing as you adopt new AI tools.", M, y);
     y += 24;
   } else {
     result.topRisks.forEach((r, i) => {
@@ -132,7 +132,7 @@ function buildReportDoc(result, meta) {
       doc.setTextColor(...BRAND.navy).setFont("helvetica", "bold").setFontSize(11);
       doc.text(r.fix.title, M + 32, y);
       doc.setTextColor(...BRAND.grey).setFont("helvetica", "normal").setFontSize(9);
-      doc.text(`${r.name} — scored ${r.score}/100 (${r.band.label})`, M + 32, y + 13);
+      doc.text(`${r.name}: scored ${r.score}/100 (${r.band.label})`, M + 32, y + 13);
       y += 28;
 
       doc.setTextColor(...BRAND.navy).setFontSize(10);
