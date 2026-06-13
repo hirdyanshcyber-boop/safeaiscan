@@ -64,6 +64,13 @@ small { font-size:.6em; vertical-align:super; opacity:.7; }
 .hero-card {
   background:var(--navy); color:#fff; border-radius:var(--radius); padding:30px; box-shadow:var(--shadow);
 }
+.card-title { color:#fff; font-size:1.18rem; font-weight:700; margin-bottom:14px; }
+.card-list { list-style:none; padding:0; margin:0 0 16px; }
+.card-list li { color:#e2e8f0; font-size:1.02rem; padding:12px 0 12px 30px; position:relative; border-bottom:1px solid #334155; }
+.card-list li:last-child { border-bottom:0; }
+.card-list li::before { content:"✓"; position:absolute; left:0; color:#38bdf8; font-weight:800; }
+.card-foot { color:#94a3b8; font-size:.9rem; text-align:center; margin-top:4px; }
+
 .counter { text-align:center; padding-bottom:18px; border-bottom:1px solid #334155; }
 .counter .big { font-size:3.4rem; font-weight:800; line-height:1; color:#fff; }
 .counter-label { color:#94a3b8; font-size:.9rem; margin-top:6px; }

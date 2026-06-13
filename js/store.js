@@ -17,9 +17,10 @@ const CONFIG = {
   SUPABASE_KEY:  "",   // anon public key
   FORMSPREE_ID:  "",   // e.g. "xanbgkqz" -> https://formspree.io/f/xanbgkqz
   EMAIL_ENDPOINT: "/api/send-report", // Cloudflare Function that emails the PDF (set "" to disable)
-  // Seed so the live counter never reads as empty on launch day.
-  SEED_COUNT: 312,
-  SEED_LEAK_PCT: 71
+  // Counting starts from real completions only — no fabricated baseline.
+  // Once you genuinely have volume, you can show a live counter again.
+  SEED_COUNT: 0,
+  SEED_LEAK_PCT: 0
 };
 
 const LS_KEYS = { stats: "safeaiscan_stats", leads: "safeaiscan_leads" };
