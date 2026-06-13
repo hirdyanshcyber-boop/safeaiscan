@@ -1,0 +1,14 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+
+# Node (if you add tooling later)
+node_modules/
+
+# Local env / secrets — never commit your Supabase/Formspree keys
+.env
+.env.local
+
+# Preview server config is fine to keep; ignore local-only overrides

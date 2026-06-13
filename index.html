@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeAI Scan — Free 5-Minute AI Security Check for Australian Small Business</title>
+  <meta name="description" content="Free 5-minute AI security health check for Australian small businesses. Score your shadow-AI and data-leak risk against the National AI Centre's AI6 guidance and get a plain-English report." />
+
+  <!-- Open Graph / social share -->
+  <meta property="og:title" content="SafeAI Scan — Is your business leaking data into AI tools?" />
+  <meta property="og:description" content="73% of small businesses use AI. 40% have no rules. Take the free 5-minute check." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://safeaiscan.com.au" />
+  <meta property="og:image" content="https://safeaiscan.com.au/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- jsPDF (in-browser PDF, no backend) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <span class="logo">🛡️ SafeAI&nbsp;Scan <small>AU</small></span>
+    <span class="tagline">AI security for Australian small business</span>
+  </div>
+</header>
+
+<!-- ============ LANDING ============ -->
+<section id="landing" class="screen active">
+  <div class="wrap hero">
+    <div class="hero-copy">
+      <span class="pill">🇦🇺 Mapped to the National AI Centre's AI6 guidance</span>
+      <h1>Is your business quietly<br><span class="hl">leaking data into AI tools?</span></h1>
+      <p class="lead">
+        Most teams now use ChatGPT for emails and quotes — often with customer details pasted straight in.
+        Free AI tools keep that data. Take the free 5-minute check and see exactly where you're exposed.
+      </p>
+      <button id="start-btn" class="btn-primary">Start my free 5-minute check →</button>
+      <p class="micro">No sign-up to start · 20 plain-English questions · Instant report</p>
+    </div>
+
+    <div class="hero-card">
+      <div class="counter">
+        <div class="big" id="live-count">312</div>
+        <div class="counter-label">Aussie businesses checked</div>
+      </div>
+      <div class="counter-split">
+        <div><span class="stat" id="live-leak">71%</span><br><small>let staff paste client data into free AI</small></div>
+      </div>
+      <p class="counter-foot">Where will your business rank?</p>
+    </div>
+  </div>
+
+  <div class="wrap facts">
+    <div class="fact"><strong>73%</strong><span>of small businesses now use AI tools</span></div>
+    <div class="fact"><strong>40%</strong><span>have no rules on AI use at all</span></div>
+    <div class="fact"><strong>$4.63M</strong><span>average cost of a shadow-AI data breach</span></div>
+    <div class="fact"><strong>Oct 2025</strong><span>AI6 guidance released — most SMBs don't know it exists</span></div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz" class="screen">
+  <div class="wrap quiz-wrap">
+    <div class="progress">
+      <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+      <div class="progress-row">
+        <span id="progress-text">Question 1 of 20</span>
+        <span id="pillar-tag" class="pillar-tag"></span>
+      </div>
+    </div>
+    <div id="question-card" class="question-card"></div>
+    <button id="back-btn" class="btn-text">← Back</button>
+  </div>
+</section>
+
+<!-- ============ EMAIL GATE ============ -->
+<section id="gate" class="screen">
+  <div class="wrap gate-wrap">
+    <div class="gate-score-box">
+      <span class="gate-label">Your score is ready</span>
+      <div id="gate-score" class="gate-score">—</div>
+      <span id="gate-grade" class="gate-grade"></span>
+    </div>
+    <h2>Where should we send your full report?</h2>
+    <p class="lead">Get your branded PDF: top 3 risks explained in plain English + a 30-day fix checklist.</p>
+    <form id="gate-form" class="gate-form" action="javascript:void(0);">
+      <input type="email" id="email" placeholder="you@business.com.au" required />
+      <input type="text" id="name" placeholder="Your name (optional)" />
+      <input type="text" id="business" placeholder="Business name (optional)" />
+      <select id="industry">
+        <option value="">Industry (optional)</option>
+        <option>Trades &amp; construction</option>
+        <option>Accounting &amp; bookkeeping</option>
+        <option>Healthcare &amp; clinics</option>
+        <option>Real estate</option>
+        <option>Retail &amp; hospitality</option>
+        <option>Professional services</option>
+        <option>Other</option>
+      </select>
+      <button id="gate-submit" type="button" class="btn-primary">See my results</button>
+      <p class="micro">No spam. We'll only email your report and the occasional AI-safety tip.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ DASHBOARD ============ -->
+<section id="dashboard" class="screen">
+  <div class="wrap dash-wrap">
+    <div class="dash-head">
+      <div id="dash-ring" class="ring">
+        <div class="ring-inner">
+          <div id="dash-score" class="dash-score">—</div>
+          <div id="dash-grade" class="dash-grade"></div>
+        </div>
+      </div>
+      <div class="dash-head-copy">
+        <span id="dash-band" class="band-chip">—</span>
+        <h2>Your AI security scorecard</h2>
+        <p>Scored across the six AI6 essential practices plus shadow-AI and cyber basics.</p>
+        <div class="dash-actions">
+          <button id="pdf-btn" class="btn-primary">⬇ Download PDF report</button>
+          <button id="linkedin-btn" class="btn-ghost">in Share on LinkedIn</button>
+          <button id="copy-btn" class="btn-ghost">Copy share text</button>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-title">Scorecard</h3>
+    <div id="pillars" class="pillars"></div>
+
+    <h3 class="section-title">Your top risks — explained</h3>
+    <div id="risks" class="risks"></div>
+
+    <div class="upsell">
+      <h3>Want it fixed, not just flagged?</h3>
+      <p>The <strong>AI Security Starter Pack</strong> — a 1-hour call, a custom AI use policy for your business, and a one-page staff guide. Built from CruxGuard, an AI governance framework aligned to APRA CPS 234 and the EU AI Act.</p>
+      <a class="btn-primary" href="mailto:hello@safeaiscan.com.au?subject=AI%20Security%20Starter%20Pack">Book the Starter Pack →</a>
+    </div>
+
+    <button id="restart-btn" class="btn-text">↺ Start over</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>SafeAI Scan · safeaiscan.com.au · An indicative self-assessment mapped to the National AI Centre's <a href="https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices" target="_blank" rel="noopener">Guidance for AI Adoption (AI6)</a>.</p>
+    <p class="disclaimer">This tool provides general guidance only and is not legal, compliance, or professional advice.</p>
+  </div>
+</footer>
+
+<script src="js/questions.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/store.js"></script>
+<script src="js/report.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
