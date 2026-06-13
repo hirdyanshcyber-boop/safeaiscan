@@ -92,12 +92,26 @@ small { font-size:.6em; vertical-align:super; opacity:.7; }
 .step h3 { font-size:1.1rem; margin-bottom:6px; }
 .step p { color:var(--grey); font-size:.92rem; }
 
-/* ---------- Testimonials ---------- */
-.testi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-.testi { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:12px; padding:22px; margin:0; }
-.testi p { font-size:1rem; color:var(--text); line-height:1.5; }
-.testi footer { margin-top:14px; font-size:.85rem; font-weight:600; color:var(--grey); }
-.testi-note { text-align:center; font-size:.82rem; color:var(--grey); margin-top:16px; font-style:italic; }
+/* ---------- Expertise / AI risks (dark band) ---------- */
+.expertise {
+  margin-top:60px;
+  padding:54px 0 10px;
+  background:
+    radial-gradient(55% 60% at 100% 0%, rgba(56,189,248,.10), transparent 70%),
+    radial-gradient(45% 55% at 0% 100%, rgba(37,99,235,.10), transparent 70%),
+    #0b1220;
+}
+.expertise .section-h { color:#fff; margin-top:0; margin-bottom:14px; }
+.section-sub { text-align:center; color:#94a3b8; max-width:64ch; margin:0 auto 32px; font-size:.98rem; line-height:1.6; }
+.risk-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; padding-bottom:54px; }
+.risk-card {
+  background:rgba(255,255,255,.04); border:1px solid rgba(148,163,184,.18);
+  border-radius:14px; padding:24px; transition:transform .18s, border-color .18s, background .18s;
+}
+.risk-card:hover { transform:translateY(-3px); border-color:rgba(56,189,248,.55); background:rgba(255,255,255,.06); }
+.risk-ico { display:grid; place-items:center; width:44px; height:44px; border-radius:11px; background:rgba(56,189,248,.14); font-size:1.35rem; margin-bottom:14px; }
+.risk-card h3 { color:#fff; font-size:1.12rem; margin-bottom:8px; }
+.risk-card p { color:#cbd5e1; font-size:.92rem; line-height:1.55; }
 
 /* ---------- Built by ---------- */
 .built-by { text-align:center; color:var(--grey); font-size:.9rem; margin:46px auto 0; max-width:60ch; }
@@ -191,7 +205,7 @@ small { font-size:.6em; vertical-align:super; opacity:.7; }
   .hero { grid-template-columns:1fr; gap:30px; }
   .hero h1 { font-size:2.1rem; }
   .facts { grid-template-columns:repeat(2,1fr); }
-  .steps-row, .testi-row { grid-template-columns:1fr; }
+  .steps-row, .risk-grid { grid-template-columns:1fr; }
   .pillars { grid-template-columns:1fr; }
   .dash-head { grid-template-columns:1fr; text-align:center; justify-items:center; }
   .dash-actions { justify-content:center; }
