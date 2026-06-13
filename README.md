@@ -1,120 +1,83 @@
-# 🛡️ SafeAI Scan
+# SafeAI Scan
 
-**The free 5-minute AI security health check for Australian small business.**
+**A free 5-minute AI security check for Australian small businesses.**
 
-A static web tool: a business owner answers 20 plain-English questions, gets an
-instant traffic-light scorecard mapped to the National AI Centre's **AI6**
-guidance (Oct 2025), and downloads a branded PDF with their top 3 risks and a
-30-day fix plan. The email they enter to get the report is your sales lead.
-
-- **Zero backend required** to deploy — pure HTML/CSS/JS, PDF generated in-browser.
-- **Live counter + share card** built in as the viral growth loop.
-- Optional Supabase (shared live stats) + Formspree (email leads) — 10-min setup.
+Most small businesses are now running on AI tools they never set any rules
+around. Staff paste customer details, payroll and contracts into free ChatGPT
+accounts that quietly keep the data. SafeAI Scan gives an owner a plain-English
+read on where they're exposed — in about the time it takes to make a coffee.
 
 ---
 
-## Run locally
+## The problem I built it for
 
-```powershell
-# from the project root
-python -m http.server 8000   # or: npx serve .
-# open http://localhost:8000
-```
+- Around **73%** of small businesses now use AI tools, and roughly **40%** have
+  no policy around it at all.
+- Pasting sensitive data into free AI tools is the **number-one cause** of
+  small-business AI data leaks.
+- From **10 December 2026**, a new Privacy Act rule (APP 1.7) will require many
+  Australian businesses to disclose AI-driven decisions about people in their
+  privacy policy. Penalties for serious breaches now reach **$50M**.
+- Enterprise AI-security platforms exist, but none of them speak to a tradie, a
+  bookkeeper or a local clinic. That gap is exactly who this is for.
 
-No build step. Edit a file, refresh.
+## What it does
 
----
+The owner answers 20 plain-English questions. SafeAI Scan turns that into a
+traffic-light scorecard across three things that actually matter to them:
 
-## Deploy (free)
+- the six **AI6** essential practices (National AI Centre's Guidance for AI Adoption),
+- their **shadow-AI and data-leak** risk, and
+- the **cyber basics** (in the spirit of the ACSC Essential Eight).
 
-### Cloudflare Pages (recommended)
-1. Push this repo to GitHub.
-2. Cloudflare dashboard → Pages → *Connect to Git* → pick the repo.
-3. Build command: *(none)*. Output directory: `/`.
-4. Add your custom domain `safeaiscan.com.au`.
+They walk away with a report that names their three biggest risks in plain
+English and gives them a simple 30-day plan to fix them.
 
-### GitHub Pages
-Settings → Pages → deploy from `main` / root. Done.
+## Why it's grounded in real frameworks
 
----
+This isn't a made-up checklist. Every question maps to something a business in
+Australia genuinely has to think about:
 
-## Going live (optional backends)
+| Area | What it's based on |
+|------|--------------------|
+| AI governance | National AI Centre — Guidance for AI Adoption (AI6), Oct 2025 |
+| AI + personal data | Privacy Act 1988 reforms — APP 1.7 automated-decision disclosure |
+| Cyber baseline | ACSC Essential Eight |
+| Shadow AI | OWASP LLM Top 10 risks, applied at a small-business level |
 
-### 0. Auto-email the PDF report to the visitor (Resend + Cloudflare Function)
+## Why it matters
 
-This is the recommended path — the visitor gets their branded report in their
-inbox automatically, and you get a lead alert. Code already lives in
-`functions/api/send-report.js`; it runs for free on Cloudflare Pages.
+- **For the business:** a fast, honest answer to *"are we doing anything risky
+  with AI?"* — plus a report they can hand to an insurer or a larger client who
+  asks how they handle data.
+- **A head start** on the December 2026 Privacy Act change, before it turns into
+  a last-minute scramble.
+- **For me:** it's a real product built from my AI-governance work, sized down
+  to something a small business will actually use.
 
-1. Sign up at [resend.com](https://resend.com) (free: 3,000 emails/month). Create an API key.
-2. Verify your sending domain in Resend (add the DNS records to `safeaiscan.com.au`)
-   so emails don't go to spam.
-3. Cloudflare Pages → your project → **Settings → Environment variables**, add:
-   - `RESEND_API_KEY` — your key (required)
-   - `SAFEAI_FROM` — e.g. `SafeAI Scan <report@safeaiscan.com.au>` (optional)
-   - `SAFEAI_NOTIFY` — your inbox, to get a lead alert per submission (optional)
-4. Redeploy. Done — the report now emails itself.
+## How it works (in brief)
 
-Until `RESEND_API_KEY` is set, the endpoint returns 503 and the site quietly
-falls back to the in-browser PDF download. Nothing breaks in local dev.
+A lightweight web app — no heavy backend. The scoring logic is a set of small,
+testable functions; the report is generated in the browser; and an optional
+serverless function can email the report straight to the visitor. Built to run
+cheaply and load instantly.
 
-The other two below are optional extras.
+## Where it's going
 
-### 1. Email leads → your inbox (Formspree, free tier)
-1. Sign up at formspree.io, create a form, copy its ID (e.g. `xanbgkqz`).
-2. Set `FORMSPREE_ID: "xanbgkqz"`.
-   Every completed assessment now emails you the lead (name, business, email, score).
-
-Until you set this, leads are stored in the browser. Run `exportLeadsCSV()` in
-the dev console to pull them out during local testing.
-
-### 2. Shared live counter (Supabase, free tier)
-1. Create a project at supabase.com. Copy the project URL + anon key.
-2. Run `supabase-schema.sql` (in this repo) in the Supabase SQL editor.
-3. Set `SUPABASE_URL` and `SUPABASE_KEY` in `CONFIG`.
-
-Without Supabase the counter runs off `SEED_COUNT` + this browser's local tally —
-fine for launch, but the number won't be shared across visitors.
+1. **Now** — the shadow-AI and AI6 check (this version).
+2. **Next** — a module for *agentic* AI: tools that can act on their own, which
+   is the fastest-growing risk heading into 2026.
+3. **Later** — a quarterly re-scan so a business can track its score over time,
+   instead of a one-off snapshot.
 
 ---
 
-## How scoring works
+## About
 
-- 20 questions, each weighted (shadow-AI / data-leak questions hit hardest —
-  that's the real-world #1 incident cause).
-- Grouped into 8 pillars: the six AI6 practices + *Shadow AI* + *Cyber baseline*.
-- Each pillar gets a weighted-average 0–100 score and a traffic light
-  (green ≥75 / amber ≥45 / red <45). Overall score = weighted average of all answers.
-- Top 3 risks = lowest-scoring pillars with a fix; surfaced in the report.
+Built by **Hirdyansh Dudi** — focused on AI security and governance for the
+Australian market. SafeAI Scan grew out of CruxGuard, an AI governance framework
+I've been developing, reworked into something a small business can pick up in
+five minutes.
 
-All logic is pure functions in `js/engine.js` — see `test/engine.test.js`.
-
----
-
-## File map
-
-| File | Job |
-|------|-----|
-| `index.html` | Markup + screen layout (landing → quiz → gate → dashboard) |
-| `styles.css` | All styling |
-| `js/questions.js` | The 20-question bank, AI6 pillar map, plain-English fixes |
-| `js/engine.js` | Pure scoring functions |
-| `js/store.js` | Live counter + lead capture (localStorage / Supabase / Formspree) |
-| `js/report.js` | Branded PDF generator (jsPDF) — build / download / base64 |
-| `js/app.js` | UI controller / flow |
-| `functions/api/send-report.js` | Cloudflare Function: emails the PDF via Resend |
-| `supabase-schema.sql` | DB tables + RPC for the shared live counter |
-
----
-
-## Roadmap (the market-changing path)
-
-1. **Now** — Shadow-AI check (this build). No competitor at SMB level.
-2. **+6 mo** — Agentic-AI module: questions on AI agents that act autonomously.
-3. **+12 mo** — Continuous monitoring: quarterly re-scan, score-over-time,
-   alerts on new AI risks. Recurring product → you own the Aussie SMB AI-risk dataset.
-
----
-
-*Indicative self-assessment. Not legal or compliance advice. Mapped to the
-National AI Centre's [Guidance for AI Adoption (AI6)](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices).*
+*SafeAI Scan is an indicative self-assessment to help a business understand
+where it stands. It's a starting point, not formal legal or compliance advice.*
