@@ -55,7 +55,7 @@ export async function onRequestPost({ request, env }) {
     `<p>Inside you'll find your three biggest risks in plain English, and a simple 30-day plan ` +
     `to sort them out. Work through it at your own pace.</p>` +
     `<p>If you'd like a hand with any of it, just reply to this email.</p>` +
-    `<p>— SafeAI Scan<br><span style="color:#64748b">safeaiscan.com.au</span></p>` +
+    `<p>SafeAI Scan<br><span style="color:#64748b">safeaiscan.com.au</span></p>` +
     `</div>`;
 
   const r = await send(
